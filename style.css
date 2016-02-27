@@ -1,4 +1,19 @@
 /* custom style here */
 .quote-container {
-  margin: 150px;
+  margin-top: 150px;
 }
+
+#quoteText {
+  font-style: italic;
+  font-family: 'Lato', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold;
+}
+
+#quoteText:before {
+  content: "\275D";
+}
+
+#quoteText:after {
+  content: "\275E";
+}
+
+

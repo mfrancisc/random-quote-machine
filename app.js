@@ -1,3 +1,10 @@
+var backgrounds = ["red lighten-4", "red accent-2", "pink accent-1", "deep-purple lighten-4", "indigo lighten-4", "blue lighten-4", "light-blue lighten-4", "cyan lighten-4", "teal lighten-4", "green lighten-5", "lime lighten-5", "green accent-1", "amber lighten-5", "yellow lighten-5","blue-grey lighten-5"];
+
+function randIndex(backgrounds){
+var index = Math.floor(Math.random() * backgrounds.length);
+return index;
+}
+
 function addQuoteText(text){
   $("#quoteText").text(text);
 }
@@ -6,9 +13,19 @@ function addQuoteFooter(author){
   $("#quoteFooter").html(author);
 }
 
+function changeBackgrounds(backgrounds){
+
+var pageBgIndex = randIndex(backgrounds);
+var quoteBgIndex = randIndex(backgrounds);
+var bodyCssClass = backgrounds[pageBgIndex];
+var quotesCssClass = backgrounds[quoteBgIndex];
+$("body").addClass(bodyCssClass);
+$("#quotes").addClass(quotesCssClass);
+}
+
 function quoteFromApi(){
 
-  $.ajax({
+  return $.ajax({
     async: "false",
     dataType : "json",
     type: "GET",
@@ -19,22 +36,27 @@ function quoteFromApi(){
     },
     url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=',
     success: function(response) {
-      addQuoteText(response.quote);
-      addQuoteFooter(response.author);
     },
     error: function() {
-      addQuoteText("Error loading quote");
-      addQuoteFooter("Error loading author");
     }
-  }).done(function() {
   });
 
 }
 
-quoteFromApi();
+var newQuote = function() {
+ quoteFromApi().done(function (response) {
+      addQuoteText(response.quote);
+      addQuoteFooter(response.author);
+      changeBackgrounds(backgrounds);
+ }).fail(function(){
+ 
+ });
+}
+
+newQuote();
 
 $("#getQuote").on("click", function(){
-  quoteFromApi(); 
+  newQuote();
 });
 
 $("#tweetQuote").on("click", function(){
