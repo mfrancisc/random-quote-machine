@@ -16,11 +16,15 @@ function addQuoteFooter(author){
 function changeBackgrounds(backgrounds){
 
 var pageBgIndex = randIndex(backgrounds);
-var quoteBgIndex = randIndex(backgrounds);
 var bodyCssClass = backgrounds[pageBgIndex];
-var quotesCssClass = backgrounds[quoteBgIndex];
-$("body").addClass(bodyCssClass);
-$("#quotes").addClass(quotesCssClass);
+$("body").removeClass().addClass(bodyCssClass);
+
+var quoteBgIndex = randIndex(backgrounds);
+var baseCssClass ="row quote-container card-panel z-depth-3 "; 
+var quotesCssClass = baseCssClass + backgrounds[quoteBgIndex];
+$("#quotes").removeClass().addClass(quotesCssClass);
+
+
 }
 
 function quoteFromApi(){
